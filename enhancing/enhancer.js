@@ -7,35 +7,43 @@ module.exports = {
 
 function succeed(item) {
   validateItem(item);
-  if (item.enhancement < 20) {
-    item.enhancement++
+  let {name, enhancement, durability} = item;
+  if (enhancement < 20) {
+    enhancement++
   }
-  return { ...item };
+  return { name, enhancement, durability };
 }
 
 function fail(item) {
   validateItem(item);
-  if (item.enhancement > 16) {
-    item.enhancement = item.enhancement - 1;
+  let {name, enhancement, durability} = item;
+  if (enhancement > 16) {
+    enhancement = enhancement - 1;
   }
-  if (item.enhancement > 15) {
-    item.durability = item.durability - 10;
+  if (enhancement > 15) {
+    durability = durability - 10;
   }
   else {
-    item.durability = item.durability - 5;
+    durability = durability - 5;
   }
-  return { ...item };
+  return { name, enhancement, durability };
 }
 
 function repair(item) {
   validateItem(item);
-  item.durability = 100;
-  return { ...item };
+  let { durability } = item;
+  durability = 100;
+  return { ...item, durability };
 }
 
 function get(item) {
   validateItem(item);
-  return { ...item };
+  const regex = /\[\+\S+\]/i
+  let {name, enhancement, durability} = item;
+  if (enhancement > 0) {
+    name = regex.test(name) ? name.replace(regex, `[+${enhancement}]`) : name + `[+${enhancement}]`
+  }
+  return { name, enhancement, durability };
 }
 
 

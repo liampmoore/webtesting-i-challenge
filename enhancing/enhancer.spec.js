@@ -83,9 +83,40 @@ describe('fail function', () => {
 
 })
 describe('get', () => {
-    it.todo("only accepts an item object")
-    it.todo("if enhancement is 0 name is not modified")
-    it.todo("if enhancement > 0 change name to include '[+enhancement]'")
+    it("only accepts an item object", () => {
+        const emptyObject = {};
+        expect(() => {
+            enhancer.get(emptyObject)
+        }).toThrow();
+    })
+    it("if enhancement is 0 name is not modified", () => {
+        const item = {
+            name: "Item",
+            durability: 50,
+            enhancement: 0
+        }
+        expect(enhancer.get(item).name).toMatch(item.name);
+    })
+    it("if enhancement > 0 change name to include '[+enhancement]'", () => {
+        const item = {
+            name: "Item",
+            durability: 50,
+            enhancement: 17
+        }
+        const modifiedItem =  enhancer.get(item);
+        expect(modifiedItem.name).toMatch(item.name + `[+${item.enhancement}]`); 
+    })
+    it("if name already includes '[+enhancement]' get should replace it", () => {
+        const item = {
+            name: "Item",
+            durability: 50,
+            enhancement: 17
+        }
+        const modifiedItem =  enhancer.get(item);
+        modifiedItem.enhancement = 19;
+        const finalItem = enhancer.get(modifiedItem);
+        expect(finalItem.name).toMatch(item.name + `[+${modifiedItem.enhancement}]`)
+    })
 })
     
 })
