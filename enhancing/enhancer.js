@@ -6,10 +6,24 @@ module.exports = {
 };
 
 function succeed(item) {
+  validateItem(item);
+  if (item.enhancement < 20) {
+    item.enhancement++
+  }
   return { ...item };
 }
 
 function fail(item) {
+  validateItem(item);
+  if (item.enhancement > 16) {
+    item.enhancement = item.enhancement - 1;
+  }
+  if (item.enhancement > 15) {
+    item.durability = item.durability - 10;
+  }
+  else {
+    item.durability = item.durability - 5;
+  }
   return { ...item };
 }
 
@@ -20,6 +34,7 @@ function repair(item) {
 }
 
 function get(item) {
+  validateItem(item);
   return { ...item };
 }
 
