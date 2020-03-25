@@ -2,7 +2,12 @@ const enhancer = require('./enhancer.js');
 // test away!
 describe('enhancer.js item enhancer module', () => {
     describe('repair function', () => {
-        it.todo("only accepts an item object")
+        it("only accepts an item object", () => {
+            const emptyObject = {};
+            expect(() => {
+                enhancer.repair(emptyObject)
+            }).toThrow();
+        })
         it.todo("returns an item object with 100 durability")
     })
     describe('success function', () => {
