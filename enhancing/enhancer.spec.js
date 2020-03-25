@@ -8,7 +8,14 @@ describe('enhancer.js item enhancer module', () => {
                 enhancer.repair(emptyObject)
             }).toThrow();
         })
-        it.todo("returns an item object with 100 durability")
+        it("returns an item object with 100 durability", () => {
+            const item = {
+                name: "Item",
+                durability: 5,
+                enhancement: 0
+            }
+            expect(enhancer.repair(item).durability).toBe(100);
+        })
     })
     describe('success function', () => {
         it.todo("only accepts an item object")
